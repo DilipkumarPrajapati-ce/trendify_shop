@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="hero-section">
+    <h1>Step Into The Future of Fashion</h1>
+    <p>Experience responsive UI design with immersive 3D showcases below.</p>
+</div>
+
+<div id="canvas-3d-container"></div>
+
+<div class="category-grid">
+    <a href="{% url 'men' %}" class="card">Shop Men</a>
+    <a href="{% url 'women' %}" class="card">Shop Women</a>
+    <a href="{% url 'kids' %}" class="card">Shop Kids</a>
+</div>
+{% endblock %}
