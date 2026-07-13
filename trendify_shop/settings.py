@@ -41,10 +41,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'trendify_shop.urls'
 
+# Inside trendify_shop/settings.py
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Pointing Django to our global HTML templates folder
+        # This line tells Django to look inside your project-level `templates` folder
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -56,7 +59,6 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'trendify_shop.wsgi.application'
 
 # SQL Database Configuration (Default robust relational SQL setup)
@@ -67,6 +69,6 @@ DATABASES = {
     }
 }
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

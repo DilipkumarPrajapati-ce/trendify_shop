@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Men</h1>
+
+{% if products %}
+<div class="category-grid">
+    {% for p in products %}
+    <a class="card" href="#">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.description|truncatewords:15 }}</p>
+        <p><strong>Price: </strong>₹{{ p.price }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No products found in Men category.</p>
+{% endif %}
+
+{% endblock %}

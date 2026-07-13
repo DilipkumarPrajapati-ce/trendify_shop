@@ -79,3 +79,93 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
+/* ==========================
+   Auth / Login Page Styles
+   Cream-themed, light UI
+   ==========================
+*/
+.auth-card {
+    max-width: 480px;
+    margin: 40px auto;
+    background: linear-gradient(180deg, #fffdf6 0%, #fff7ee 100%);
+    border-radius: 12px;
+    padding: 28px 30px;
+    box-shadow: 0 12px 30px rgba(34,41,47,0.06);
+    border: 1px solid rgba(31,29,24,0.04);
+}
+
+.auth-card h2 {
+    margin: 0 0 16px 0;
+    font-size: 26px;
+    color: #2b2b2b;
+}
+
+.auth-form {
+    display: block;
+}
+
+.form-row {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #3e3a36;
+    font-size: 14px;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #e7dccf;
+    background: #fff;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.form-actions {
+    margin-top: 12px;
+}
+
+.btn {
+    background: linear-gradient(90deg, #d9c6b0 0%, #f5ead8 100%);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #222;
+    box-shadow: 0 6px 18px rgba(34,41,47,0.06);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(34,41,47,0.08);
+}
+
+.small {
+    color: #6b665f;
+    margin-top: 14px;
+}
+
+.form-errors, .field-errors {
+    color: #b23a3a;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .auth-card {
+        margin: 20px;
+        padding: 20px;
+    }
+    .navbar { padding: 16px 20px; }
+}

@@ -24,5 +24,22 @@ class Order(models.Model):
     ordered_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, default='Processing')
 
+    # Shipping-related fields
+    shipping_option = models.ForeignKey('ShippingOption', on_delete=models.SET_NULL, null=True, blank=True)
+    shipping_address = models.TextField(blank=True, null=True)
+    shipping_cost = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    shipped_date = models.DateTimeField(blank=True, null=True)
+    tracking_number = models.CharField(max_length=200, blank=True, null=True)
+
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
+
+
+class ShippingOption(models.Model):
+    name = models.CharField(max_length=120)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    estimated_days = models.IntegerField(default=3)
+    carrier = models.CharField(max_length=120, blank=True)
+
+    def __str__(self):
+        return f"{self.name} — ₹{self.price} ({self.estimated_days}d)"
