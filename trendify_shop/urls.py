@@ -21,4 +21,5 @@ urlpatterns = [
     #  CORRECT (Fixes the admin routing block)
      path('admin/', admin.site.urls), # Remove the '.shape or' entirely
     path('', include('store.urls')), # Connects all app pages securely
+    path('api/', include('store.api_urls')),
 ]
