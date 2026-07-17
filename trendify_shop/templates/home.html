@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if primary_featured and primary_featured.image_url %}
+<div class="primary-hero" style="background-image: url('{{ primary_featured.image_url }}');">
+    <div class="primary-overlay container">
+        <div class="hero-copy">
+            <p class="hero-label">{{ primary_featured.category }}</p>
+            <h1 class="hero-title">{{ primary_featured.name }}</h1>
+            <p class="hero-description">Fashion that moves with you. Discover the latest curated looks with premium comfort.</p>
+            <div class="hero-actions">
+                <form method="post" action="{% url 'place_order' %}" class="hero-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ primary_featured.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button class="btn btn--primary">Buy Now</button>
+                </form>
+                <a class="btn btn--secondary" href="{% url 'men' %}">Explore Collection</a>
+            </div>
+        </div>
+        <button id="featured-3d-btn" class="btn btn--ghost hero-3d-btn">View in 3D</button>
+        <img id="featured-image" src="{{ primary_featured.image_url }}" alt="" style="display:none;">
+    </div>
+</div>
+{% endif %}
+
+<section class="category-highlights container">
+    <a href="{% url 'men' %}" class="highlight-card">
+        <p class="highlight-label">Men</p>
+        <h2>New Arrivals</h2>
+        <small>Shop curated looks for him</small>
+    </a>
+    <a href="{% url 'women' %}" class="highlight-card">
+        <p class="highlight-label">Women</p>
+        <h2>Season Favorites</h2>
+        <small>Discover standout silhouettes</small>
+    </a>
+    <a href="{% url 'kids' %}" class="highlight-card">
+        <p class="highlight-label">Kids</p>
+        <h2>Playful Styles</h2>
+        <small>Comfort with character</small>
+    </a>
+</section>
+{% endblock %}

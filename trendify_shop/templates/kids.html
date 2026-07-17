@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Kids</h1>
+
+{% if products %}
+<div class="category-grid">
+    {% for p in products %}
+    <div class="card">
+        {% if p.image_url %}
+        <div class="product-media"><img src="{{ p.image_url }}" alt="{{ p.name }}"></div>
+        {% else %}
+        <div class="product-media"><div class="product-placeholder">{{ p.name }}</div></div>
+        {% endif %}
+
+        <h3 class="product-title">{{ p.name }}</h3>
+        <p class="product-desc">A premium {{ p.category|title }} essential designed for modern style and everyday comfort.</p>
+        <div class="product-meta">
+            <span class="price">₹{{ p.price }}</span>
+            <span class="badge">{{ p.category }}</span>
+        </div>
+
+        <form method="post" action="{% url 'place_order' %}">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ p.id }}">
+            <div class="form-row">
+                <label>Quantity</label>
+                <input class="input" type="number" name="quantity" value="1" min="1">
+            </div>
+            <div class="form-row shipping-select">
+                <label>Shipping option</label>
+                {% for option in shipping_options %}
+                <label class="shipping-option">
+                    <input type="radio" name="shipping_option" value="{{ option.id }}" {% if forloop.first %}checked{% endif %}>
+                    {{ option.name }} — ₹{{ option.price }} • {{ option.estimated_days }} days
+                </label>
+                {% endfor %}
+            </div>
+            <div class="form-row">
+                <label>Shipping address</label>
+                <textarea class="input" name="shipping_address" rows="2" placeholder="Street, city, pincode"></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary">Buy Now</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No products found in Kids category.</p>
+{% endif %}
+
+{% endblock %}

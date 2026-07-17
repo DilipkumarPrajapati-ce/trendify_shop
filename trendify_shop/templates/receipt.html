@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="receipt">
+    <header>
+        <div>
+            <div class="company">Trendify Store</div>
+            <p>Order Receipt</p>
+        </div>
+        <div class="meta">
+            <p>Order #: {{ order.id }}</p>
+            <p>Date: {{ order.ordered_date|date:"M d, Y" }}</p>
+        </div>
+    </header>
+
+    <section>
+        <p><strong>Customer:</strong> {{ order.user.username }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Shipping:</strong> {{ order.shipping_option }}</p>
+        {% if order.tracking_number %}
+            <p><strong>Tracking:</strong> {{ order.tracking_number }}</p>
+        {% endif %}
+    </section>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ order.product.name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>₹{{ order.product.price }}</td>
+                <td>₹{{ order.product.price|floatformat:2|add:""|floatformat:2|floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total">
+        <p><strong>Shipping:</strong> ₹{{ order.shipping_cost|floatformat:2 }}</p>
+        <p><strong>Total:</strong> ₹{{ order.total_cost|floatformat:2 }}</p>
+    </div>
+
+    <div class="receipt-actions">
+        <a class="btn btn--ghost" href="{% url 'orders' %}">Back to Orders</a>
+        <button class="btn btn--primary" onclick="window.print()">Print Receipt</button>
+    </div>
+</div>
+{% endblock %}

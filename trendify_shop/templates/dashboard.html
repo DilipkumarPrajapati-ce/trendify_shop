@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p>Your latest activity, order summaries, and quick actions all in one place.</p>
+</div>
+
+<div class="dashboard-actions">
+    <a class="btn btn--primary" href="{% url 'orders' %}">View All Orders</a>
+    <a class="btn btn--secondary" href="{% url 'contact' %}">Get Support</a>
+</div>
+
+<div class="dashboard-grid">
+    <div class="profile-card">
+        <h2>Quick Summary</h2>
+        <p><strong>Total orders:</strong> {{ order_count }}</p>
+        <p><strong>Total spent:</strong> ₹{{ total_spent|floatformat:2 }}</p>
+        <p><strong>Recent orders:</strong> {{ orders|length }}</p>
+    </div>
+
+    <div class="review-card">
+        <h2>Recent Order Activity</h2>
+        {% if orders %}
+            <ul>
+                {% for order in orders %}
+                    <li>
+                        <strong>#{{ order.id }}</strong> {{ order.product.name }} —
+                        {{ order.quantity }} pcs • {{ order.status }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no recent orders yet. Shop now to start building your collection.</p>
+        {% endif %}
+    </div>
+
+    <div class="contact-card">
+        <h2>Need help?</h2>
+        <p>Our support team is ready to assist with order updates, returns, and styling advice.</p>
+        <p><strong>Email:</strong> <a href="mailto:support@trendify.com">support@trendify.com</a></p>
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+    </div>
+</div>
+{% endblock %}

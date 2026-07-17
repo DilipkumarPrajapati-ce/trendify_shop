@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Orders</h1>
+
+{% if orders %}
+<div class="category-grid">
+    {% for order in orders %}
+    <div class="card">
+        <h3>Order #{{ order.id }}</h3>
+        <p class="product-desc">{{ order.product.name }} × {{ order.quantity }}</p>
+        <p><strong>Unit Price:</strong> ₹{{ order.product.price|floatformat:2 }}</p>
+        <p><strong>Total:</strong> ₹{{ order.total_cost|floatformat:2 }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Shipping:</strong> {{ order.shipping_option }}</p>
+        <p><strong>Ordered:</strong> {{ order.ordered_date|date:"M d, Y H:i" }}</p>
+        <div class="card-actions">
+            <a class="btn btn--ghost" href="{% url 'receipt' order.id %}">View Receipt</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <div class="empty-state">
+        <h2>No orders yet</h2>
+        <p>Purchase a product from any category to begin.</p>
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard-header">
+    <h1>Contact Us</h1>
+    <p>Need help with an order or want styling advice? Our team is here for you.</p>
+</div>
+
+<div class="contact-grid">
+    <div class="contact-card">
+        <h2>Customer Support</h2>
+        <p>If you have questions about shipping, returns, or size guidance, send us a message anytime.</p>
+        <p><strong>Email:</strong> <a href="mailto:support@trendify.com">support@trendify.com</a></p>
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+        <p><strong>Hours:</strong> Mon–Fri 9am–6pm IST</p>
+    </div>
+
+    <div class="contact-card">
+        <h2>Contact Us</h2>
+        <form method="post" class="contact-form">
+            {% csrf_token %}
+            {{ contact_form.as_p }}
+            <button name="contact_submit" class="btn btn--primary">Send Message</button>
+        </form>
+    </div>
+
+    <div class="contact-card">
+        <h2>Leave a Review</h2>
+        <form method="post" class="contact-form">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button name="review_submit" class="btn btn--secondary">Submit Review</button>
+        </form>
+    </div>
+</div>
+
+<div class="dashboard-header">
+    <h2>Latest Reviews</h2>
+</div>
+<div class="review-grid">
+    {% for review in recent_reviews %}
+    <div class="review-card">
+        <div class="review-header">
+            <p><strong>{{ review.user.username }}</strong></p>
+            <div class="review-stars">{% for i in "12345"|make_list %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+        </div>
+        <p>{{ review.comment|truncatechars:160 }}</p>
+        <p class="muted">{{ review.created_date|date:'M d, Y' }}</p>
+    </div>
+    {% empty %}
+    <div class="review-card">
+        <p>No reviews yet. Be the first to share your experience.</p>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}
